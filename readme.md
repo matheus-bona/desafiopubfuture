@@ -33,7 +33,7 @@ Em sequência, para a migração dos modelos criados na base de dados, utilize o
 ````
 python manage.py migrate
 ````
-O próprio algoritmo cria a base de dados SQLite caso não for encontrada.
+O próprio algoritmo cria a base de dados SQLite caso não existir.
 
 Por fim, para rodar a aplicação digite:
 ````
