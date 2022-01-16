@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% block conteudo %}
+    <h1 class="mt-5">Receitas</h1>
+    <button type="button" onclick="location.href = '{% url 'cadastrar_receita' %}'" class="btn btn-primary">Cadastrar Receita</button>
+    <button type="button" onclick="location.href = '{% url 'cadastrar_tipo_receita' %}'" class="btn btn-primary">Cadastrar Novo Tipo de Receita</button>
+    <br><br>
+    <form method="POST" action="{% url 'filtro_receitas' %}">
+        {% csrf_token %}
+        <div class="form-group">
+            <h3>Filtros</h3>
+            <label>Data Recebimento Início</label>
+            <input  type="date" class="form-control" name="data_recebimento_inicio">
+            <br>
+            <label>Data Recebimento Fim</label>
+            <input type="date" class="form-control" name="data_recebimento_fim">
+            <br>
+            <label>Tipo Receita</label>
+            <br>
+            <select name="tipo_receita">
+                <option>Todos</option>
+                {% for tipo in tipos_receitas %}
+                    <option>{{ tipo }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Filtrar</button>
+    </form>
+    <br><br>
+    {% include 'parciais/_messages.html' %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Conta</th>
+                <th>Valor</th>
+                <th>Data Recebimento</th>
+                <th>Data Recebimento Esperado</th>
+                <th>Tipo Receita</th>
+                <th>Editar</th>
+                <th>Deletar</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for receita in receitas %}
+                <tr>
+                    <td>{{ receita.conta_receita }}</td>
+                    <td>{{ receita.valor}}</td>
+                    <td>{{ receita.data_recebimento}}</td>
+                    <td>{{ receita.data_recebimento_esperado}}</td>
+                    <td>{{ receita.tipo_receita}}</td>
+                    <td>
+                        <button type="button" class="btn btn-primary"
+                                onclick="location.href = '{% url 'editar_receita' receita.id %}'">Editar</button>
+                    </td>
+                    <td>
+                        <form method="POST" action="{% url 'deletar_receita' receita.id %}">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-primary"
+                                    onclick="location.href = '{% url 'deletar_receita' receita.id %}'">Deletar</button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

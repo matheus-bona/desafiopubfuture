@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{%block titulo%}Editar Conta{%endblock%}
+
+{%block conteudo%}
+<h1 class="mt-5">Editar Despesa</h1>
+<form method="POST" action="{% url 'editar_despesa' despesa_id=despesa.id %}">
+    {% csrf_token %}
+    {% include 'parciais/_messages.html' %}
+
+
+    <div class="form-group">
+        <label>Novo Valor</label>
+        <input type="number" class="form-control" step="0.01" name="novo_valor"
+               value="{{ despesa.valor }}">
+    </div>
+
+
+    <div class="form-group">
+        <label>Nova Data Pagamento</label>
+        <input type="date" class="form-control" name="novo_data_pagamento"
+               value="{{ despesa.data_pagamento }}">
+    </div>
+
+
+    <div class="form-group">
+        <label>Nova Data Pagamento Esperado</label>
+        <input type="date" class="form-control" name="novo_data_pagamento_esperado"
+               value="{{ despesa.data_pagamento_esperado }}">
+    </div>
+
+
+    <div class="form-group">
+        <label>Novo Tipo de Despesa</label>
+        <select name="novo_tipo_despesa">
+            {% for tipo in tipos_despesas %}
+            <option>{{ tipo }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label>Nova Conta Vinculada</label>
+        <select name="novo_conta_despesa">
+            {% for conta in contas %}
+            <option>{{ conta }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Editar</button>
+</form>
+
+<h3 class="mt-5">Dados Atuais</h3>
+<dl>
+    <dt>Valor</dt>
+    <dd>{{ despesa.valor }}</dd>
+
+    <dt>Data do Pagamento</dt>
+    <dd>{{ despesa.data_pagamento }}</dd>
+
+    <dt>Data do Pagamento Esperado</dt>
+    <dd>{{ despesa.data_pagamento_esperado }}</dd>
+
+    <dt>Tipo Despesa</dt>
+    <dd>{{ despesa.tipo_despesa }}</dd>
+
+    <dt>Conta Atual da Despesa</dt>
+    <dd>{{ despesa.conta_despesa }}</dd>
+
+</dl>
+
+{%endblock%}
+
+

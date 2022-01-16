@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{%block titulo%}Editar Conta{%endblock%}
+
+{%block conteudo%}
+<h1 class="mt-5"> Editar Receita</h1>
+<form method="POST" action="{% url 'editar_receita' receita_id=receita.id %}">
+    {% csrf_token %}
+    {% include 'parciais/_messages.html' %}
+
+
+    <div class="form-group">
+        <label>Novo Valor</label>
+        <input type="number" class="form-control" step="0.01" name="novo_valor"
+               value="{{ receita.valor }}">
+    </div>
+
+
+    <div class="form-group">
+        <label>Nova Data Pagamento</label>
+        <input type="date" class="form-control" name="novo_data_recebimento"
+               value="{{ receita.data_recebimento }}">
+    </div>
+
+
+    <div class="form-group">
+        <label>Nova Data Pagamento Esperado</label>
+        <input type="date" class="form-control" name="novo_data_recebimento_esperado"
+               value="{{ receita.data_recebimento_esperado }}">
+    </div>
+
+
+    <div class="form-group">
+        <label>Novo Tipo de Receita</label>
+        <select name="novo_tipo_receita">
+            {% for tipo in tipos_receitas %}
+            <option>{{ tipo }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label>Nova Conta Vinculada</label>
+        <select name="novo_conta_receita">
+            {% for conta in contas %}
+            <option>{{ conta }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Editar</button>
+</form>
+
+<h3 class="mt-5">Dados Atuais</h3>
+<dl>
+    <dt>Valor</dt>
+    <dd>{{ receita.valor }}</dd>
+
+    <dt>Data do Pagamento</dt>
+    <dd>{{ receita.data_recebimento }}</dd>
+
+    <dt>Data do Pagamento Esperado</dt>
+    <dd>{{ receita.data_recebimento_esperado }}</dd>
+
+    <dt>Tipo Receita</dt>
+    <dd>{{ receita.tipo_receita }}</dd>
+
+    <dt>Conta Atual da Receita</dt>
+    <dd>{{ receita.conta_receita }}</dd>
+
+</dl>
+
+{%endblock%}
+
+

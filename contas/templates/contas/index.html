@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block conteudo %}
+    <h1 class="mt-5">Contas</h1>
+    <button type="button" onclick="location.href = '/transfer'" class="btn btn-primary">Transferir</button>
+    <button type="button" onclick="location.href = '{% url 'criar_conta' %}'" class="btn btn-primary">Criar Nova Conta</button>
+    <button type="button" onclick="location.href = '{% url 'criar_tipo_conta' %}'" class="btn btn-primary">Criar Novo Tipo de Conta</button>
+    <button type="button" onclick="location.href = '{% url 'deletar_conta' %}'" class="btn btn-primary">Deletar Conta</button>
+    <br><br>
+    {% include 'parciais/_messages.html' %}
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Conta</th>
+          <th>Tipo</th>
+          <th>Instituição Financeira</th>
+          <th>Saldo</th>
+          <th>Ação</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        {% for conta in contas %}
+
+          <tr>
+            <td>{{ conta.id}}</td>
+            <td>{{ conta.tipo_conta}}</td>
+            <td>{{ conta.instituicao_financeira}}</td>
+            <td>{{ conta.saldo}}</td>
+              <td> <button type="button" class="btn btn-primary" onclick="location.href = '{% url 'editar_conta' conta.id %}'">Editar</button> </td>
+          </tr>
+
+        {% endfor %}
+
+
+      </tbody>
+    </table>
+
+{% endblock %}

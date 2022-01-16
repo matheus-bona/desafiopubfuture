@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{%block titulo%}Cadastrar Tipo de Receita{%endblock%}
+
+{%block conteudo%}
+<h1 class="mt-5">Cadastrar Tipo de Receita</h1>
+<br>
+<form method="POST" action="{% url 'cadastrar_tipo_receita' %}">
+    {% csrf_token %}
+    {% include 'parciais/_messages.html' %}
+    <table>
+        {{ form }}
+        <tr>
+            <td>
+                <button type="submit" class="btn btn-primary">Cadastrar</button>
+            </td>
+        </tr>
+    </table>
+</form>
+
+{%endblock%}
+
+

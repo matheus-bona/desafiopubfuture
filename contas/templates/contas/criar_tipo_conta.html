@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{%block titulo%}Criar Novo Tipo de Conta{%endblock%}
+
+{%block conteudo%}
+  <h1 class="mt-5">Criar Novo Tipo de Conta</h1>
+  <br>
+  <form method="POST" action="{% url 'criar_tipo_conta' %}">
+    {% csrf_token %}
+    {% include 'parciais/_messages.html' %}
+
+    <table>
+      {{ form }}
+      <tr>
+        <td>
+          <button type="submit" class="btn btn-primary">Criar</button>
+        </td>
+      </tr>
+    </table>
+  </form>
+
+{%endblock%}

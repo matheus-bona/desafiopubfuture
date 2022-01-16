@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{%block titulo%}Editar Conta{%endblock%}
+
+{%block conteudo%}
+<h1 class="mt-5"> Editar Conta: {{ conta.id }}</h1>
+<form method="POST" action="{% url 'editar_conta' conta_id=conta.id %}">
+    {% csrf_token %}
+    {% include 'parciais/_messages.html' %}
+    <div class="form-group">
+        <label>Instituição Financeira</label>
+        <input type="text" class="form-control" name="conta_instituicao_financeira" value="{{ conta.instituicao_financeira }}">
+    </div>
+    <div class="form-group">
+        <label>Saldo</label>
+        <input type="number" class="form-control" step="0.01" name="conta_saldo" value="{{ conta.saldo }}">
+    </div>
+    <div class="form-group">
+        <label>Novo Tipo de Conta</label>
+        <select name="tipo_conta">
+            {% for tipo in tipos %}
+            <option>{{ tipo }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Editar</button>
+</form>
+
+<h3 class="mt-5">Dados Atuais</h3>
+<dl>
+    <dt>ID</dt>
+    <dd>{{ conta.id }}</dd>
+
+    <dt>Instituição Financeira</dt>
+    <dd>{{ conta.instituicao_financeira }}</dd>
+
+    <dt>Tipo de conta</dt>
+    <dd>{{ conta.tipo_conta }}</dd>
+
+    <dt>Saldo</dt>
+    <dd>{{ conta.saldo }}</dd>
+</dl>
+
+{%endblock%}
+
+
